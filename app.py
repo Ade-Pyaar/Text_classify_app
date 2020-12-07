@@ -1,8 +1,5 @@
 import streamlit as st
-import os
 from utils import process_tweet, lookup, naive_bayes_predict
-
-os.environ['PORT'] = 8501
 
 
 #start the user interface
