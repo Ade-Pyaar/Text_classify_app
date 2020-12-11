@@ -44,30 +44,25 @@ def process_tweet(tweet):
     return tweets_clean
 
 
-def test_lookup(func):
-    freqs = {('sad', 0): 4,
-             ('happy', 1): 12,
-             ('oppressed', 0): 7}
-    word = 'happy'
-    label = 1
-    if func(freqs, word, label) == 12:
-        return 'SUCCESS!!'
-    return 'Failed Sanity Check!'
+def naive_bayes_predict(tweet):
+    with open("loglikelihood.json", "r") as outfile: 
+        loglikelihood = json.load(outfile)
+    
+    logprior = 0.0
+    # process the tweet to get a list of words
+    word_l = process_tweet(tweet)
 
+    # initialize probability to zero
+    p = 0
 
-def lookup(freqs, word, label):
-    '''
-    Input:
-        freqs: a dictionary with the frequency of each pair (or tuple)
-        word: the word to look up
-        label: the label corresponding to the word
-    Output:
-        n: the number of times the word with its corresponding label appears.
-    '''
-    n = 0  # freqs.get((word, label), 0)
+    # add the logprior
+    p += logprior
 
-    pair = (word, label)
-    if (pair in freqs):
-        n = freqs[pair]
+    for word in word_l:
 
-    return n
+        # check if the word exists in the loglikelihood dictionary
+        if word in loglikelihood:
+            # add the log likelihood of that word to the probability
+            p += loglikelihood[word]
+
+    return p
