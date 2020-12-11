@@ -1,9 +1,14 @@
 import streamlit as st
-from utils import process_tweet, lookup, naive_bayes_predict
+from utils import naive_bayes_predict
+
+
+
+st.sidebar.subheader('About the App')
+st.sidebar.markdown('Sentiment Analysis App with Streamlit using a trained Naive Bayes model')
 
 
 #start the user interface
-st.write("This is just a small text classification app. Type in your text below and don't forget to press the enter button before clicking/pressing the 'classify' button")
+st.write("This is just a small text classification app. Type in your text below and don't forget to press the enter button before clicking/pressing the 'Classify' button")
 st.write("Don't fret if the prediction is not correct or if it is not what you expected, the model is not perfect.")
 
 st.write("There is no provision for neutral text, yet...")
