@@ -16,7 +16,6 @@ def process_tweet(tweet):
 
     '''
     stemmer = PorterStemmer()
-    stopwords_english = stopwords.words('english')
     # remove stock market tickers like $GE
     tweet = re.sub(r'\$\w*', '', tweet)
     # remove old style retweet text "RT"
