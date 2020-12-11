@@ -46,17 +46,6 @@ def process_tweet(tweet):
     return tweets_clean
 
 
-def lookup(freqs, word, label):
-  
-    n = 0  # freqs.get((word, label), 0)
-
-    pair = (word, label)
-    if (pair in freqs):
-        n = freqs[pair]
-
-    return n
-
-
 def naive_bayes_predict(tweet):
     with open("loglikelihood.json", "r") as outfile: 
         loglikelihood = json.load(outfile)
