@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
+
+    <title>Auto-predict App</title>
+
+  </head>
+
+  <body>
+    <main role="main" class="container mb-5">
+      <div class="row">
+          <div class="col-md-6">
+              <div class="container mb-5">
+                <br>
+                <p><b>Sentiment Analysis App using a trained Naive Bayes model</b></p>
+                <p>This is just a small text classification app. Don't fret if the prediction is not correct or if it is not what you expected, the model is not perfect.</p>
+                <p>Type in your sentence below and don't forget to press the enter button before clicking/pressing the button below.</p>
+          
+                <br><br>
+                <form autocomplete="off" method="POST">
+                  <div class="form-group">
+                    <label for="word">Enter your sentence:</label>
+                    <input type="text" class="form-control" placeholder="Enter word" name="word" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Predict</button>
+                </form>
+                
+                <br>
+                <div id="result">
+
+                </div>
+          </div>
+      </div>
+    </main>
+
+    
+      <script>
+        let res = JSON.parse(`{{ result|tojson }}`)
+        let ap = ''
+        for(let x in res) {
+        ap += ` <p>${res[x]} ${x}<\p>`;
+        }
+        document.querySelector('#result').innerHTML += ap
+
+      </script>
+    
+     
+    <style>
+      .my_footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        color: black;
+        text-align: center;
+      }
+      </style>
+      
+      <div class="my_footer">
+        Made by Pyaar <br>
+        Email: Adebayoibrahim2468@gmail.com
+      </div>
+  </body>
+</html>

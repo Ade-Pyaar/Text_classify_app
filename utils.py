@@ -3,8 +3,12 @@ import string
 import nltk
 import json
 
+nltk.download('stopwords')
+
+from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.tokenize import TweetTokenizer
+
 
 
 def process_tweet(tweet):
@@ -16,6 +20,7 @@ def process_tweet(tweet):
 
     '''
     stemmer = PorterStemmer()
+    stopwords_english = stopwords.words('english')
     # remove stock market tickers like $GE
     tweet = re.sub(r'\$\w*', '', tweet)
     # remove old style retweet text "RT"
@@ -31,11 +36,8 @@ def process_tweet(tweet):
     tweet_tokens = tokenizer.tokenize(tweet)
 
     tweets_clean = []
-    blacklist = ['i',
-         'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', "you're", "you've", "you'll", "you'd", 'your', 'yours', 'yourself', 'yourselves', 'he', 'him', 'his', 'himself', 'she', "she's", 'her',
-         'hers', 'herself', 'it', "it's", 'its', 'itself', 'they', 'them', 'their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom', 'this', 'that', "that'll", 'these', 'those', 'am', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or', 'because', 'as', 'until', 'while', 'of', 'at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down', 'in', 'out', 'on', 'over', 'under', 'again', 'further', 'then', 'once', 'here', 'there', 'when', 'where', 'why', 'how', 'all', 'any', 'both', 'each', 'few', 'more', 'most', 'other', 'some', 'such', 'nor', 'only', 'own', 'same', 'so', 'than', 'too', 'very', 's', 't', 'can', 'will', 'just', 'don', 'should', "should've", 'now', 'd', 'll', 'm', 'o', 're', 've', 'y', 'ain', 'aren', 'couldn', 'didn', 'doesn', 'hadn', 'hasn', 'haven', 'isn', 'ma', 'mightn', 'mustn', 'needn', 'shan', 'shouldn', 'wasn', 'weren', 'won', 'wouldn']
     for word in tweet_tokens:
-        if (word not in blacklist and  # remove stopwords
+        if (word not in stopwords_english and  # remove stopwords
             word not in string.punctuation):  # remove punctuation
             # tweets_clean.append(word)
             stem_word = stemmer.stem(word)  # stemming word
